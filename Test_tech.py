@@ -2,10 +2,10 @@ import numpy as np
 from pandas import read_csv
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import train_test_split, StratifiedKFold, cross_val_score
 from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import train_test_split, StratifiedKFold, cross_val_score
+
 
 
 
@@ -67,7 +67,6 @@ def test():
     modeles.append(('LR', LogisticRegression(solver='liblinear', multi_class='ovr')))
     modeles.append(('LDA', LinearDiscriminantAnalysis()))
     modeles.append(('KNN', KNeighborsClassifier()))
-    modeles.append(('CART', DecisionTreeClassifier()))
     modeles.append(('NB', GaussianNB()))
     
     # IV) Evaluate models
@@ -78,7 +77,6 @@ def test():
     for nom, modele in modeles:
                 kfold = StratifiedKFold(n_splits=10, random_state=1, shuffle=True)
                 crossval_resultats = cross_val_score(modele, X_train, Y_train, cv=kfold, scoring='accuracy')
-                print(crossval_resultats)
                 results.append(crossval_resultats)
                 nom.append(nom)
                 print('%s: %f (%f)' % (nom, crossval_resultats.mean(), crossval_resultats.std()))
